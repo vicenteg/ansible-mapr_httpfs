@@ -1,0 +1,7 @@
+---
+# defaults file for mapr-httpfs
+
+proxy_env: { }
+
+httpfs_version: 1.0
+httpfs_build: 201505061449-1
