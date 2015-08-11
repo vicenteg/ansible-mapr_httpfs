@@ -1,16 +1,11 @@
 ---
 # tasks file for mapr-httpfs
 - name: Install Packages
-  apt: pkg={{ item }} state=present 
-  with_items:
-    - mapr-httpfs-{{httpfs_version}}.{{httpfs_build}}
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Install Packages
   yum: pkg={{ item }} state=present 
   with_items:
     - mapr-httpfs-{{httpfs_version}}.{{httpfs_build}}
   when: ansible_distribution in ('CentOS', 'RedHat', 'Amazon')
+  environment: proxy_env
 
 - name: configure httpfs proxy user (hosts)
   hadoop_properties:
