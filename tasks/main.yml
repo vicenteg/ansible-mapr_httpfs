@@ -1,8 +1,8 @@
 ---
 # tasks file for mapr-httpfs
 - name: Install Packages
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
   yum: pkg={{ item }} state=present 
   with_items:
     - mapr-httpfs-{{httpfs_version}}.{{httpfs_build}}
@@ -10,16 +10,16 @@
   environment: proxy_env
 
 - name: configure httpfs proxy user (hosts)
-  sudo: yes
-  sudo_user: '{{mapr_admin_username}}'
+  become: yes
+  become_user: '{{mapr_admin_username}}'
   hadoop_properties:
     file: /opt/mapr/httpfs/httpfs-{{httpfs_version}}/etc/hadoop/httpfs-site.xml
     name: httpfs.proxyuser.mapr.hosts
     value: '*'
 
 - name: configure httpfs proxy user (groups)
-  sudo: yes
-  sudo_user: '{{mapr_admin_username}}'
+  become: yes
+  become_user: '{{mapr_admin_username}}'
   hadoop_properties:
     file: /opt/mapr/httpfs/httpfs-{{httpfs_version}}/etc/hadoop/httpfs-site.xml
     name: httpfs.proxyuser.mapr.groups
